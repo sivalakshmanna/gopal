@@ -1,6 +1,6 @@
 pipeline{
     agent any 
-    perameters{
+    parameters{
         string(name: 'BRANCH_NAME', defaultValue: 'master', description: 'give branch name')
         string(name: 'BRANCH_PIPE', defaultValue: 'master', description: 'give branch name')
     }
