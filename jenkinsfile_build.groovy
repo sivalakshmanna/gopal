@@ -1,32 +1,27 @@
 pipeline{
-    agent any
-    environment {
-        BRANCH = "${env.BRANCH_NAME}"
+    agent any 
+    perameters{
+        string(name: 'BRANCH_NAME', defaultValue: 'master', description: 'give branch name')
+        string(name: 'BRANCH_PIPE', defaultValue: 'master', description: 'give branch name')
     }
     stages{
-        stage("chekout code"){
+        stage("clone the code"){
             steps{
-                println "clone our code to our repository"
-                sh "ls -l"
-                sh "ls -lart ./*"
-                git branch: "${BRANCH_NAME}",
-                url: 'https://github.com/KuruvaSomaSekhar/boxfuse-sample-java-war-hello.git'
-                
-
+                println "clonig the code from git hub"
             }
         }
-        stage("build code"){
+        stage("build the code"){
             steps{
-                println "mvn clean package"
+                println "build the code"
                 sh "mvn clean package"
-                sh "ls -l target/"
+                sh "ls -l"
             }
         }
         stage("upload artifacts to s3"){
             steps{
-                println "uploading artifacts to s3 bucket"
+                println "upload artifacts to s3 bucket"
                 sh "echo $BUILD_NUMBER"
-               sh "aws s3 cp target/hello-${BUILD_NUMBER}.war s3://sivabandela/${BRANCH}/${BUILD_NUMBER}/"
+                sh "aws s3 cp target/hello-${BUILD_NUMBER}.war s3://sivabandela/"
             }
         }
     }
