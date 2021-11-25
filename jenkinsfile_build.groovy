@@ -3,6 +3,8 @@ pipeline{
     parameters{
         string(name: 'BRANCH_NAME', defaultValue: 'master', description: 'give branch name')
         string(name: 'BRANCH_PIPE', defaultValue: 'master', description: 'give branch name')
+        string(name: 'SOURCE_CODE', defaultValue: '', description: 'give branch name')
+        
     }
     stages{
         stage("clone the code"){
